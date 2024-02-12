@@ -12,8 +12,7 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"db:migrate": "dotenv -e .env.local -- dbmate --env POSTGRES_URL_NON_POOLING up",
-		"db:rollback": "dotenv -e .env.local -- dbmate --env POSTGRES_URL_NON_POOLING rollback",
-		"pull": "dotenv -e .env.local -- prisma db pull"
+		"db:rollback": "dotenv -e .env.local -- dbmate --env POSTGRES_URL_NON_POOLING rollback"
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
@@ -29,7 +28,6 @@
 		"eslint-plugin-svelte3": "^4.0.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
-		"prisma": "^5.9.1",
 		"svelte": "^3.54.0",
 		"svelte-check": "^2.9.2",
 		"typescript": "^4.9.3",

@@ -3,7 +3,13 @@
 </script>
 
 <form method="POST">
-  <input name="title" type="text"/>
-  <input name="description"/>
+  <label>
+    Title
+    <input name="title" type="text">
+  </label>
+  <label>
+    Description
+    <input name="description"/>
+  </label>
   <button>Submit</button>
 </form>
