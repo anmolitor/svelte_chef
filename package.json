@@ -2,7 +2,7 @@
 	"name": "svelte-chef",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "dotenv -e .env.local -- vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
@@ -10,7 +10,10 @@
 		"test": "playwright test",
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --plugin-search-dir . --write .",
+		"db:migrate": "dotenv -e .env.local -- dbmate --env POSTGRES_URL_NON_POOLING up",
+		"db:rollback": "dotenv -e .env.local -- dbmate --env POSTGRES_URL_NON_POOLING rollback",
+		"pull": "dotenv -e .env.local -- prisma db pull"
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
@@ -19,19 +22,23 @@
 		"@sveltejs/adapter-auto": "^1.0.0-next.90",
 		"@sveltejs/kit": "^1.0.0-next.587",
 		"@types/cookie": "^0.5.1",
+		"dbmate": "^2.11.0",
+		"dotenv-cli": "^7.3.0",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
+		"prisma": "^5.9.1",
 		"svelte": "^3.54.0",
 		"svelte-check": "^2.9.2",
 		"typescript": "^4.9.3",
+		"vercel": "^33.5.0",
 		"vite": "^4.0.0",
 		"vitest": "^0.25.3"
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^10.8.0"
+		"@vercel/postgres": "^0.7.2"
 	}
 }
