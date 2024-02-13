@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title> 
+	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
@@ -15,7 +15,7 @@
 	<h1>Submit your favorite recipe</h1>
 
 	{#each data.recipes as recipe}
-		<Recipe recipe={recipe}/>
+		<Recipe {recipe} />
 	{/each}
 	<RecipeForm />
 </section>

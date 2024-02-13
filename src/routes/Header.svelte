@@ -1,8 +1,7 @@
 <script>
-	</script>
+</script>
 
 <header>
-
 	<nav>
 		<ul>
 			<li>
@@ -10,5 +9,4 @@
 			</li>
 		</ul>
 	</nav>
-
 </header>

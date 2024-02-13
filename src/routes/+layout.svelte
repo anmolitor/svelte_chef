@@ -10,7 +10,7 @@
 	</main>
 
 	<footer>
-		<p>{"Made with <3 and Svelte"}</p>
+		<p>{'Made with <3 and Svelte'}</p>
 	</footer>
 </div>
 

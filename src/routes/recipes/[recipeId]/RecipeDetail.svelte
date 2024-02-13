@@ -1,11 +1,11 @@
 <script>
-  /**
-   * @type {RecipeDetails}
-   */
-  export let recipe;
+	/**
+	 * @type {RecipeDetails}
+	 */
+	export let recipe;
 </script>
 
 <div>
-  <h1>{recipe.title}</h1>
-  <p>{recipe.description}</p>
+	<h1>{recipe.title}</h1>
+	<p>{recipe.description}</p>
 </div>
