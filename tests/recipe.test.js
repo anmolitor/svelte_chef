@@ -8,5 +8,5 @@ test('add a recipe', async ({ page }) => {
 
 	expect(await page.getByLabel('Title').textContent()).toBe('');
 	expect(await page.getByLabel('Description').textContent()).toBe('');
-	expect(await page.getByText('Quiche')).toBeTruthy();
+	expect(await page.getByText('Quiche').count()).toBe(1);
 });

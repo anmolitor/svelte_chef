@@ -1,7 +1,18 @@
 import { database } from '$lib/server/database';
 import { fail } from '@sveltejs/kit';
 
-/** @type {import('../$types').PageServerLoad} */
+/**
+ * @typedef {Object} Params
+ * @property {String} recipeId - The ID of the recipe
+ */
+/**
+ * @typedef {Object} PageData
+ * @property {Params} params - Path Parameters from the URL
+ */
+/**
+ * @type {import('../$types').PageServerLoad}
+ * @param {PageData} data
+ */
 export async function load({ params }) {
 	/**
 	 * @type {import('@vercel/postgres').QueryResult<RecipeDetails>}
