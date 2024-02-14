@@ -1,3 +1,6 @@
+# This file tells prettier which file paths should not formatted.
+# In general, this should be all generated files, since they are not written/changed by hand,
+# so formatting does not really have any value.
 .DS_Store
 node_modules
 /build
@@ -6,8 +9,6 @@ node_modules
 .env
 .env.*
 !.env.example
+.vercel
 
-# Ignore files for PNPM, NPM and YARN
-pnpm-lock.yaml
 package-lock.json
-yarn.lock

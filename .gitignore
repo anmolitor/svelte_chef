@@ -1,3 +1,5 @@
+# This file tells git which file paths should not be checked into version control.
+# In general, this should be all generated files, since generating them from scratch avoids consistency issues.
 .DS_Store
 node_modules
 /build
@@ -9,8 +11,5 @@ node_modules
 .vercel
 .output
 vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
 
-.vercel
-.env*.local
 NOTES.md
