@@ -1,5 +1,9 @@
 # This file tells git which file paths should not be checked into version control.
 # In general, this should be all generated files, since generating them from scratch avoids consistency issues.
+
+# 'package-lock.json' for example, IS checked into version control although it is generated, 
+# since it locks the version of dependencies for reproducable builds
+# (which package.json does not do - in general it is a good practice to allow patch upgrades without needing to increment the version each time).
 .DS_Store
 node_modules
 /build
