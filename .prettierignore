@@ -8,7 +8,7 @@ node_modules
 /package
 .env
 .env.*
-!.env.example
+!.env.local
 .vercel
 
 package-lock.json

@@ -6,6 +6,12 @@ When first checking out this project, you should install the dependencies with `
 To do that, you need to have [NodeJS](https://nodejs.org/en) installed.
 
 The project is built to be hosted on [Vercel](https://vercel.com) and uses a [Vercel postgres database](https://vercel.com/docs/storage/vercel-postgres).
+Locally, you can run your own database, for example with Docker:
+
+```
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres --name svelte_db postgres:15.3
+```
+
 To connect to the database for development, you need to sync the credentials to a `.env.local` file, which can be done with `npx vercel pull` (possibly you need to run `npx vercel login` and/or `npx vercel link` first).
 
 To then start a development server:

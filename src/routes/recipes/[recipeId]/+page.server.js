@@ -1,4 +1,4 @@
-import { database } from '$lib/server/database';
+import { sql } from '$lib/server/database';
 import { fail } from '@sveltejs/kit';
 
 /**
@@ -15,10 +15,10 @@ import { fail } from '@sveltejs/kit';
  */
 export async function load({ params }) {
 	/**
-	 * @type {import('@vercel/postgres').QueryResult<RecipeDetails>}
+	 * @type {import('pg').QueryResult<RecipeDetails>}
 	 */
 	const queryResult =
-		await database.sql`SELECT id, title, description FROM recipe WHERE id = ${params.recipeId}`;
+		await sql`SELECT id, title, description FROM recipe WHERE id = ${params.recipeId}`;
 	const [recipe] = queryResult.rows;
 	if (!recipe) {
 		fail(404, { recipe: 'Not found' });
