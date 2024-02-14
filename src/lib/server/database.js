@@ -1,7 +1,7 @@
-import { POSTGRES_URL } from '$env/static/private';
-import { Client } from 'pg';
+import { env } from '$env/dynamic/private';
+import pg from 'pg';
 
-const client = new Client(POSTGRES_URL);
+const client = new pg.Client(env.POSTGRES_URL);
 
 /** @type {(() => void)[]} */
 let connectionSubscribers = [];

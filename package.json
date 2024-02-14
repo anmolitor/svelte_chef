@@ -4,7 +4,7 @@
 	"scripts": {
 		"dev": "dotenv -e .env.local -- vite dev",
 		"build": "vite build",
-		"preview": "vite preview",
+		"preview": "dotenv -e .env.prod vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"test:e2e": "playwright test",
