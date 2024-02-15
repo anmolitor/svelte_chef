@@ -2,17 +2,19 @@
 	"name": "svelte-chef",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "dotenv -e .env.local -- vite dev",
+		"dev": "dotenv -e .env.local -- npm run db:migrate && vite dev",
+		"dev:prod": "dotenv -e .env.prod -- vite dev",
 		"build": "vite build",
-		"preview": "dotenv -e .env.prod vite preview",
+		"preview": "dotenv -e .env.local -- npm run db:migrate && vite preview",
+		"preview:test": "dotenv -e .env.test -- npm run db:migrate && vite preview",
+		"preview:prod": "dotenv -e .env.prod -- vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"test:e2e": "playwright test",
 		"test": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"db:migrate": "dotenv -e .env.local -- dbmate --env POSTGRES_URL_NON_POOLING up",
-		"db:rollback": "dotenv -e .env.local -- dbmate --env POSTGRES_URL_NON_POOLING rollback"
+		"db:migrate": "dbmate --env POSTGRES_URL_NON_POOLING up"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
