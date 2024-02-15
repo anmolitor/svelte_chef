@@ -2,19 +2,21 @@
 	"name": "svelte-chef",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "dotenv -e .env.local -- npm run db:migrate && vite dev",
+		"dev": "dotenv -e .env.local -- npm run db:migrate && dotenv -e .env.local -- vite dev",
 		"dev:prod": "dotenv -e .env.prod -- vite dev",
 		"build": "vite build",
-		"preview": "dotenv -e .env.local -- npm run db:migrate && vite preview",
-		"preview:test": "dotenv -e .env.test -- npm run db:migrate && vite preview",
+		"preview": "dotenv -e .env.local -- npm run db:migrate && dotenv -e .env.local -- vite preview",
+		"preview:test": "dotenv -e .env.test -- npm run db:reset && dotenv -e .env.test -- vite preview",
 		"preview:prod": "dotenv -e .env.prod -- vite preview",
+		"link:prod": "vercel login && vercel link && vercel env pull .env.prod",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"test:e2e": "playwright test",
 		"test": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"db:migrate": "dbmate --env POSTGRES_URL_NON_POOLING up"
+		"db:migrate": "dbmate --env POSTGRES_URL_NON_POOLING up",
+		"db:reset": "dbmate --env POSTGRES_URL_NON_POOLING drop && npm run db:migrate"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
