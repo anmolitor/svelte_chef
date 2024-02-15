@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.17.x]
+        node-version: [20.11.x]
     services:
       # Label used to access the service container
       postgres:
@@ -43,7 +43,7 @@ jobs:
         run: npm run lint && npm run check
       - name: Run Unit Tests
         env:
-          POSTGRES_URL: postgres://postgres:postgres@localhost:5432
+          POSTGRES_URL: postgres://postgres:postgres@postgres:5432
         run: npm run test
       - name: Build Code for production
         run: npm run build
