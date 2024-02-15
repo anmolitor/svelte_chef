@@ -13,7 +13,20 @@ jobs:
     strategy:
       matrix:
         node-version: [18.17.x]
-
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -29,6 +42,8 @@ jobs:
       - name: Run Linting
         run: npm run lint && npm run check
       - name: Run Unit Tests
+        env:
+          POSTGRES_URL: postgres://postgres:postgres@postgres:5432
         run: npm run test
       - name: Build Code for production
         run: npm run build

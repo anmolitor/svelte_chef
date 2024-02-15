@@ -4,7 +4,7 @@ import { ConnectionPool } from './database/pool';
 
 const database = new ConnectionPool(
 	new pg.Pool({
-		connectionString: 'postgres://postgres:postgres@localhost:5432',
+		connectionString: process.env.POSTGRES_URL ?? 'postgres://postgres:postgres@localhost:5432',
 		max: 2
 	})
 );
