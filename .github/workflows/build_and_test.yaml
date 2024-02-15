@@ -27,6 +27,9 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -38,10 +41,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Run Linting
-        run: curl postgres:5432 && npm run lint && npm run check
+        run: curl localhost:5432 && npm run lint && npm run check
       - name: Run Unit Tests
         env:
-          POSTGRES_URL: postgres://postgres:postgres@postgres:5432
+          POSTGRES_URL: postgres://postgres:postgres@localhost:5432
         run: npm run test
       - name: Build Code for production
         run: npm run build
