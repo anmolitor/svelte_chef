@@ -1,5 +1,4 @@
 /**
- *
  * @param {TemplateStringsArray} textFragments
  * @param  {Value[]} valueFragments
  * @returns {Query}
@@ -18,16 +17,6 @@ export function templateSqlQuery(textFragments, ...valueFragments) {
 
 	return query;
 }
-
-/**
- * @typedef {Object} Query
- * @property {string} text
- * @property {Value[]} values
- */
-
-/**
- * @typedef {string | number} Value
- */
 
 /**
  *

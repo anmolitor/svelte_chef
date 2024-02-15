@@ -50,7 +50,7 @@ export class ConnectionPool {
 	}
 }
 
-class Transaction {
+export class Transaction {
 	/**
 	 * @param {import('pg').PoolClient} client
 	 */
