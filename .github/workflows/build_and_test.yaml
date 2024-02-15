@@ -41,7 +41,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Run Linting
-        run: curl localhost:5432 && npm run lint && npm run check
+        run: npm run lint && npm run check
       - name: Run Unit Tests
         env:
           POSTGRES_URL: postgres://postgres:postgres@localhost:5432
