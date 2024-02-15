@@ -13,8 +13,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"test:e2e": "playwright test",
 		"test": "vitest",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
 		"db:migrate": "dbmate --env POSTGRES_URL_NON_POOLING up",
 		"db:reset": "dbmate --env POSTGRES_URL_NON_POOLING drop && npm run db:migrate"
 	},
