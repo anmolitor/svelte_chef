@@ -10,3 +10,9 @@ test('add a recipe', async ({ page }) => {
 	expect(await page.getByLabel('Description').textContent()).toBe('');
 	expect(await page.getByText('Quiche').count()).toBe(1);
 });
+
+test('navigate to the created recipe', async ({ page }) => {
+	await page.goto('/recipes');
+	await page.getByText('Quiche').click();
+	expect(await page.getByText('Very delicious!').count()).toBe(1);
+});
