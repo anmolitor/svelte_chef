@@ -5,7 +5,5 @@ node_modules
 /package
 .env
 .env.*
-!.env.local
-!.env.test
 
 package-lock.json
