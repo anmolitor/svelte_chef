@@ -1,4 +1,4 @@
-import { sql } from '$lib/server/database';
+import { database } from '$lib/server/database';
 import { fail } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
@@ -6,7 +6,7 @@ export const load = async () => {
 	/**
 	 * @type {import('pg').QueryResult<RecipeTeaser>}
 	 */
-	const queryResult = await sql`SELECT id, title FROM recipe`;
+	const queryResult = await database.sql`SELECT id, title FROM recipe`;
 	const recipes = queryResult.rows;
 	return {
 		recipes
@@ -24,6 +24,6 @@ export const actions = {
 			return fail(400, {});
 		}
 
-		await sql`INSERT INTO recipe (title, description) VALUES (${title.toString()}, ${description.toString()})`;
+		await database.sql`INSERT INTO recipe (title, description) VALUES (${title.toString()}, ${description.toString()})`;
 	}
 };

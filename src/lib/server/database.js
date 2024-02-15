@@ -1,43 +1,89 @@
 import { env } from '$env/dynamic/private';
 import pg from 'pg';
 
-const client = new pg.Client(env.POSTGRES_URL);
-
-/** @type {(() => void)[]} */
-let connectionSubscribers = [];
-let connected = false;
-let connecting = false;
-
-/**
- * 
- * @returns {Promise<void>}
- */
-const connect = async () => {
-  if (connected) {
-    return;
+class ConnectionPool {
+  /**
+   * @param {pg.Pool} pool 
+   */
+  constructor(pool) {
+    this.pool = pool;
   }
-  if (!connecting) {
-    return client.connect(() => {
-      connected = true;
-      connecting = false;
-      connectionSubscribers.forEach((sub) => sub());
-      connectionSubscribers = [];
-    });
+
+  
+  /**
+   * @param {TemplateStringsArray} textFragments 
+   * @param  {Value[]} valueFragments
+   * @returns {Promise<import('pg').QueryResult>} 
+   */
+  sql(textFragments, ...valueFragments) {
+    const { text, values } = templateSqlQuery(textFragments, ...valueFragments);
+    return this.pool.query(text, values);
   }
-  return new Promise(resolve => {
-    connectionSubscribers.push(resolve);
-  })
+
+  /**
+   * @template T The final result of your queries inside of the transaction.
+   * @param {(transaction: Transaction) => Promise<T>} callback 
+   *    Use the provided transaction object to run queries inside of the transaction.
+   *    If any query fails, the whole transaction is rolled back.
+   * @returns {Promise<T>}
+   */
+  async withTransaction(callback) {
+    const client = await this.pool.connect();
+    
+    try {
+      await client.query('BEGIN');
+    } catch (e) {
+      console.error('Failed to start transaction.', e);
+      client.release();
+      throw e;
+    }
+
+    try {
+      const result = await callback(new Transaction(client));
+      await client.query('COMMIT');
+      return result;
+    } catch (e) {
+      console.error('Caught error within transaction, rolling back');
+      await client.query('ROLLBACK');
+      throw e;
+    } finally {
+      client.release();
+    }
+  }
 }
+
+class Transaction {
+  /**
+   * @param {pg.PoolClient} client
+   */
+  constructor(client) {
+    this.client = client;
+  }
+
+  /**
+   * @param {TemplateStringsArray} textFragments 
+   * @param  {Value[]} valueFragments
+   * @returns {Promise<import('pg').QueryResult>} 
+   */
+  sql(textFragments, ...valueFragments) {
+    const { text, values } = templateSqlQuery(textFragments, ...valueFragments);
+    return this.client.query(text, values);
+  }
+}
+
+const pool = new pg.Pool({
+  connectionString: env.POSTGRES_URL
+});
+
+export const database = new ConnectionPool(pool);
 
 /**
  * 
  * @param {TemplateStringsArray} textFragments 
  * @param  {Value[]} valueFragments
- * @returns {Promise<import('pg').QueryResult>} 
+ * @returns {Query} 
  */
-export const sql = async(textFragments, ...valueFragments) => {
-  await connect();
-
+function templateSqlQuery(textFragments, ...valueFragments) {
   /** @type {Query} */
   const query = {
     text: textFragments[0],
@@ -49,7 +95,7 @@ export const sql = async(textFragments, ...valueFragments) => {
     query.values = query.values.concat(q.values);
   });
 
-  return client.query(query.text, query.values)
+  return query;
 }
 
 /**
