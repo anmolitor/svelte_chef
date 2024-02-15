@@ -43,7 +43,7 @@ jobs:
         run: npm run lint && npm run check
       - name: Run Unit Tests
         env:
-          POSTGRES_URL: postgres://postgres:postgres@postgres:5432
+          POSTGRES_URL: postgres://postgres:postgres@localhost:5432
         run: npm run test
       - name: Build Code for production
         run: npm run build
