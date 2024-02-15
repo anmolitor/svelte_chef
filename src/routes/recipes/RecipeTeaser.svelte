@@ -6,5 +6,5 @@
 </script>
 
 <div>
-	<a href={recipe.id}>{recipe.title}</a>
+	<a href={`/recipes/${recipe.id}`}>{recipe.title}</a>
 </div>
