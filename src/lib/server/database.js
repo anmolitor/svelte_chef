@@ -7,5 +7,3 @@ const pool = new pg.Pool({
 });
 
 export const database = new ConnectionPool(pool);
-
-
