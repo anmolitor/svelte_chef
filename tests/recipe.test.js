@@ -13,6 +13,7 @@ test('add a recipe', async ({ page }) => {
 
 test('navigate to the created recipe', async ({ page }) => {
 	await page.goto('/recipes');
-	await page.getByText('Quiche').click();
-	expect(await page.getByText('Very delicious!').count()).toBe(1);
+	expect(await page.getByText('Very delicious!').count()).toBe(0);
+	await page.getByRole('link', { name: 'Quiche' }).click();
+	await page.getByText('Very delicious!').click();
 });
