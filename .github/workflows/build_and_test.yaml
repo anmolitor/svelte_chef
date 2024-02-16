@@ -76,7 +76,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - name: Install Dependencies
-        run: npm ci && npx playwright install --with-deps
+        run: npm ci && ls -la node_modules/dbmate && ls -la node_modules/@dbmate && npx playwright install --with-deps
       - name: Install dbmate
         run: sudo curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64 && sudo chmod +x /usr/local/bin/dbmate
       - name: Run end-to-end tests
