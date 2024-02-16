@@ -21,10 +21,8 @@ export async function load({ params }) {
 		await database.sql`SELECT id, title, description FROM recipe WHERE id = ${params.recipeId}`;
 	const [recipe] = queryResult.rows;
 	if (!recipe) {
-		console.log('Throw error');
 		error(404, { message: 'Recipe not found' });
 	}
-	console.log('???');
 	return {
 		recipe
 	};

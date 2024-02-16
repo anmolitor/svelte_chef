@@ -59,7 +59,6 @@ describe('placeholder', () => {
 		await database.sql`CREATE TABLE db_test_4 (id INT PRIMARY KEY)`;
 		/** @param {import('./database/pool').Transaction} transaction */
 		const multipleQueries = async (transaction) => {
-			console.log('Running in tx');
 			await transaction.sql`INSERT INTO db_test_4 (id) VALUES (2)`;
 			// intended to fail
 			await transaction.sql`INSERT INTO db_test_4 (id) VALUES ('1')`;
